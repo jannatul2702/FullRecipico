@@ -1,0 +1,23 @@
+# Use a base image with Node.js pre-installed
+FROM node:16-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY Frontend/package*.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Copy the entire frontend directory to the container
+COPY Frontend/ ./
+
+# Build the React app for production
+RUN npm run build
+
+# Expose port 3000
+EXPOSE 3000
+
+# Set the command to run when the container starts
+CMD ["npm", "start"]
